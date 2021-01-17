@@ -43,4 +43,20 @@ module.exports.validateLoginInput = (username, password) => {
     errors,
     valid: Object.keys(errors).length === 0
   }
+};
+
+module.exports.validatePostInput = (title, body) => {
+  const errors = {};
+
+  if (title.trim() === '') {
+    errors.title = 'Title is required';
+  }
+  if(body.trim() === '') {
+    errors.body = 'Body is required';
+  }
+
+  return {
+    errors,
+    valid: Object.keys(errors).length === 0
+  }
 }
