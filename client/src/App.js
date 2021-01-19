@@ -1,7 +1,13 @@
+import Router from './components/Router';
+import Header from './components/Header';
+
 const App = () => {
   return (
-      <div>Hello</div>
+    <>
+      <Header loggedIn={false} />
+      <Router />
+    </>
   );
-}
+};
 
 export default App;
