@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloProvider, client } from './ApolloProvider';
+import { ApolloProvider, client } from './components/ApolloProvider';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -8,7 +8,7 @@ import './index.css';
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-        <App />
+      <App />
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
