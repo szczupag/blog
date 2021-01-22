@@ -3,7 +3,7 @@ import { Form, Button, Container } from 'react-bootstrap';
 import { useMutation, gql } from '@apollo/client';
 import FormErrors from './FormErrors';
 
-const SignUp = () => {
+const SignUp = (props) => {
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     username: '',
@@ -13,8 +13,8 @@ const SignUp = () => {
   });
 
   const [signUp] = useMutation(signUpQuery, {
-    update(proxy, result) {
-      console.log(result);
+    update(_, result) {
+      props.history.push('/');
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);

@@ -1,19 +1,17 @@
-import { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
-import { AuthContext } from './AuthContext';
+import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Form, Button, Container } from 'react-bootstrap';
 import FormErrors from './FormErrors';
 
-const SignIn = () => {
+const SignIn = (props) => {
   const [errors, setErrors] = useState({});
   const [username, setUsernameValue] = useState('');
   const [password, setPasswordValue] = useState('');
-  const { authenticated, setUsername, setAuthenticated } = useContext(AuthContext);
 
   const [signIn] = useMutation(signInQuery, {
-    update(proxy, result) {
+    update(_, result) {
       console.log(result);
+      props.history.push('/');
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
@@ -29,7 +27,6 @@ const SignIn = () => {
     signIn();
   };
 
-  if (authenticated) return <Redirect to="/" />
   return (
     <Container>
       <Form onSubmit={onSignIn}>
