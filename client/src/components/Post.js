@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import { AuthContext } from './AuthContext';
 import moment from 'moment';
+import DeleteButton from './DeleteButton';
 
 const Post = () => {
   const { user } = useContext(AuthContext);
@@ -39,7 +40,7 @@ const Post = () => {
             {user.username === post.author && (
               <Card.Footer>
                 <Button variant="secondary" style={{ marginRight: '16px' }}>Edit</Button>
-                <Button variant="danger">Delete</Button>
+                <DeleteButton postId={postId} />
               </Card.Footer>
             )}
           </Card>

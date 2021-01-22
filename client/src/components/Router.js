@@ -4,7 +4,6 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import Home from './Home';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-import AddPost from './AddPost';
 import Post from './Post';
 
 const Router = () => {
