@@ -20,7 +20,7 @@ const Home = () => {
   return (
     <Container>
       <Row className="justify-content-md-center">
-        <Col lg={8}>
+        <Col lg={8} sm={12}>
           {user && <AddPost />}
         </Col>
       </Row>

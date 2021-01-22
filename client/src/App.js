@@ -5,7 +5,9 @@ import { AuthProvider } from './components/AuthContext';
 const App = () => (
   <AuthProvider>
     <Header />
-    <Router />
+    <div className="contentWrapper">
+      <Router />
+    </div>
   </AuthProvider>
 );
 

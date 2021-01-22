@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { useMutation, gql } from '@apollo/client';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, Col, Row } from 'react-bootstrap';
 import FormErrors from './FormErrors';
 import { AuthContext } from './AuthContext';
 
@@ -30,32 +30,36 @@ const SignIn = () => {
 
   return (
     <Container>
-      <Form onSubmit={onSignIn}>
-        <Form.Group controlId="username">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsernameValue(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPasswordValue(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <FormErrors errors={errors} />
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
+      <Row className="justify-content-md-center">
+        <Col lg={8} sm={12}>
+          <div className="formWrapper">
+            <Form onSubmit={onSignIn}>
+              <Form.Group controlId="username">
+                <Form.Control
+                  type="text"
+                  placeholder="Username"
+                  value={username}
+                  onChange={(e) => setUsernameValue(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Form.Group controlId="password">
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPasswordValue(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <FormErrors errors={errors} />
+              <Button variant="primary" type="submit">
+                Submit
+               </Button>
+            </Form>
+          </div>
+        </Col>
+      </Row>
     </Container>
   )
 }

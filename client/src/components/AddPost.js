@@ -39,33 +39,34 @@ const AddPost = () => {
 
   return (
     <Container>
-      <Form onSubmit={onAddPost}>
-        <Form.Group controlId="title">
-          <Form.Label>Title</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Title"
-            value={values.title}
-            onChange={(e) => setValues({ ...values, title: e.target.value })}
-            required
-          />
-        </Form.Group>
-        <Form.Group controlId="body">
-          <Form.Label>Body</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={6}
-            placeholder="Body"
-            value={values.body}
-            onChange={(e) => setValues({ ...values, body: e.target.value })}
-            required
-          />
-        </Form.Group>
-        <FormErrors errors={errors} />
-        <Button variant="primary" type="submit">
-          Submit
+      <div className="formWrapper">
+        <h1>Add post</h1>
+        <Form onSubmit={onAddPost}>
+          <Form.Group controlId="title">
+            <Form.Control
+              type="text"
+              placeholder="Title"
+              value={values.title}
+              onChange={(e) => setValues({ ...values, title: e.target.value })}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="body">
+            <Form.Control
+              as="textarea"
+              rows={6}
+              placeholder="Body"
+              value={values.body}
+              onChange={(e) => setValues({ ...values, body: e.target.value })}
+              required
+            />
+          </Form.Group>
+          <FormErrors errors={errors} />
+          <Button variant="primary" type="submit">
+            Submit
         </Button>
-      </Form>
+        </Form>
+      </div>
     </Container>
   )
 }
