@@ -5,6 +5,7 @@ import Home from './Home';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import AddPost from './AddPost';
+import Post from './Post';
 
 const Router = () => {
   const { user } = useContext(AuthContext);
@@ -13,7 +14,7 @@ const Router = () => {
       <Route exact path="/" component={Home} />
       <Route exact path="/sign-in" render={() => user ? <Redirect to="/" /> : <SignIn />} />
       <Route exact path="/sign-up" render={() => user ? <Redirect to="/" /> : <SignUp />} />
-      <Route exact path="/add-post" render={() => user ? <AddPost /> : <Redirect to="/sign-in" />} />
+      <Route exact path="/post/:postId" render={() => user ? <Post /> : <Redirect to="/" />} />
     </BrowserRouter>
   );
 }

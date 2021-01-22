@@ -3,19 +3,19 @@ import { Container, Spinner, CardColumns, Row, Col } from 'react-bootstrap';
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
 import { useQuery, gql } from '@apollo/client';
-import Post from './Post';
+import PostCard from './PostCard';
 import AddPost from './AddPost';
 
 const Home = () => {
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
   const { user } = useContext(AuthContext);
   const { loading, data } = useQuery(fetchPostsQuery);
 
   useEffect(() => {
     if (data) {
-        setPosts(data.getPosts);
+      setPosts(data.getPosts);
     }
-}, [data]);
+  }, [data]);
 
   return (
     <Container>
@@ -30,7 +30,7 @@ const Home = () => {
         </div>
       ) : (
           <CardColumns>
-            {posts.map(post => <Post key={post.id} post={post} />)}
+            {posts.map(post => <PostCard key={post.id} post={post} />)}
           </CardColumns>
         )}
     </Container>
