@@ -3,7 +3,6 @@ import Home from './Home';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import AddPost from './AddPost';
-import SignOut from './SignOut';
 
 const Router = () => {
   return (
@@ -11,7 +10,6 @@ const Router = () => {
       <Route exact path="/" component={Home} />
       <Route exact path="/sign-in" component={SignIn} />
       <Route exact path="/sign-up" component={SignUp} />
-      <Route exact path="/sign-out" component={SignOut} />
       <Route exact path="/add-post" component={AddPost} />
     </BrowserRouter>
   );

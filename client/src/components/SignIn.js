@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Form, Button, Container } from 'react-bootstrap';
 import FormErrors from './FormErrors';
+import { AuthContext } from './AuthContext';
 
 const SignIn = (props) => {
+  const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
   const [username, setUsernameValue] = useState('');
   const [password, setPasswordValue] = useState('');
 
   const [signIn] = useMutation(signInQuery, {
-    update(_, result) {
-      console.log(result);
+    update(_, { data: { login: userData } }) {
+      context.signIn(userData);
       props.history.push('/');
     },
     onError(err) {
@@ -62,7 +64,10 @@ const SignIn = (props) => {
 const signInQuery = gql`
   mutation Login($username: String!, $password: String!) {
     login(username: $username, password: $password){
+      id
+      email
       token
+      username
     }
   }
 `;

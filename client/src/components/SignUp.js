@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Form, Button, Container } from 'react-bootstrap';
 import { useMutation, gql } from '@apollo/client';
 import FormErrors from './FormErrors';
+import { AuthContext } from './AuthContext';
 
 const SignUp = (props) => {
+  const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     username: '',
@@ -13,7 +15,8 @@ const SignUp = (props) => {
   });
 
   const [signUp] = useMutation(signUpQuery, {
-    update(_, result) {
+    update(_, { data: { register: userData } }) {
+      context.signIn(userData);
       props.history.push('/');
     },
     onError(err) {
@@ -84,7 +87,10 @@ const SignUp = (props) => {
 const signUpQuery = gql`
   mutation Register($registerInput: RegisterInput!) {
     register(registerInput: $registerInput){
+      id
+      email
       token
+      username
     }
   }
 `;
