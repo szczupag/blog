@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import { useMutation, gql } from '@apollo/client';
 import { Form, Button, Container } from 'react-bootstrap';
 import FormErrors from './FormErrors';
+import { fetchPostsQuery } from './Home';
 
 const AddPost = () => {
-  const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     title: '',
@@ -13,8 +12,19 @@ const AddPost = () => {
   });
 
   const [addPost] = useMutation(addPostQuery, {
-    update() {
-      setSuccess(true);
+    update(proxy, result) {
+      const data = proxy.readQuery({
+        query: fetchPostsQuery
+      });
+      const new_post = result.data.createPost;
+      proxy.writeQuery({
+        query: fetchPostsQuery,
+        data: { getPosts: [new_post, ...data.getPosts] }
+      });
+      setValues({
+        title: '',
+        body: '',
+      });
     },
     onError(err) {
       setErrors([err.graphQLErrors[0].message]);
@@ -26,8 +36,6 @@ const AddPost = () => {
     e.preventDefault();
     addPost();
   };
-
-  if (success) return <Redirect to="/" />
 
   return (
     <Container>
@@ -68,6 +76,7 @@ const addPostQuery = gql`
       id
       title
       body
+      author
       createdAt
     }
   }

@@ -1,18 +1,29 @@
 import { useEffect, useState } from 'react';
-import { Container, Spinner, CardColumns } from 'react-bootstrap';
+import { Container, Spinner, CardColumns, Row, Col } from 'react-bootstrap';
+import { useContext } from 'react';
+import { AuthContext } from './AuthContext';
 import { useQuery, gql } from '@apollo/client';
 import Post from './Post';
+import AddPost from './AddPost';
 
 const Home = () => {
+  const [posts, setPosts] = useState([])
+  const { user } = useContext(AuthContext);
   const { loading, data } = useQuery(fetchPostsQuery);
-  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    if (data && data.getPosts) setPosts(data.getPosts);
-  }, [data]);
+    if (data) {
+        setPosts(data.getPosts);
+    }
+}, [data]);
 
   return (
     <Container>
+      <Row className="justify-content-md-center">
+        <Col lg={8}>
+          {user && <AddPost />}
+        </Col>
+      </Row>
       {loading ? (
         <div className="spinnerWrapper">
           <Spinner animation="grow" />
@@ -39,3 +50,6 @@ const fetchPostsQuery = gql`
 `;
 
 export default Home;
+export {
+  fetchPostsQuery,
+}
