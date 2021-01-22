@@ -4,7 +4,7 @@ import { useMutation, gql } from '@apollo/client';
 import FormErrors from './FormErrors';
 import { AuthContext } from './AuthContext';
 
-const SignUp = (props) => {
+const SignUp = () => {
   const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
@@ -17,7 +17,6 @@ const SignUp = (props) => {
   const [signUp] = useMutation(signUpQuery, {
     update(_, { data: { register: userData } }) {
       context.signIn(userData);
-      props.history.push('/');
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);

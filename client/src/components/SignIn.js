@@ -4,7 +4,7 @@ import { Form, Button, Container } from 'react-bootstrap';
 import FormErrors from './FormErrors';
 import { AuthContext } from './AuthContext';
 
-const SignIn = (props) => {
+const SignIn = () => {
   const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
   const [username, setUsernameValue] = useState('');
@@ -13,7 +13,6 @@ const SignIn = (props) => {
   const [signIn] = useMutation(signInQuery, {
     update(_, { data: { login: userData } }) {
       context.signIn(userData);
-      props.history.push('/');
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
