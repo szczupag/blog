@@ -3,23 +3,32 @@ import { Redirect } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import { useMutation, gql } from '@apollo/client';
 import { Form, Button, Container } from 'react-bootstrap';
+import FormErrors from './FormErrors';
 
 const SignIn = () => {
+  const [errors, setErrors] = useState({});
   const [username, setUsernameValue] = useState('');
   const [password, setPasswordValue] = useState('');
-  const [signIn] = useMutation(signInQuery);
   const { authenticated, setUsername, setAuthenticated } = useContext(AuthContext);
+
+  const [signIn] = useMutation(signInQuery, {
+    update(proxy, result) {
+      console.log(result);
+    },
+    onError(err) {
+      setErrors(err.graphQLErrors[0].extensions.exception.errors);
+    },
+    variables: {
+      username,
+      password
+    }
+  });
+
   const onSignIn = (e) => {
     e.preventDefault();
-    signIn({ variables: { username, password } })
-      .then(() => {
-        setUsername(username);
-        setAuthenticated(true);
-      })
-      .catch(error => {
-        error.graphQLErrors.map(({ message }) => alert(message))
-      })
+    signIn();
   };
+
   if (authenticated) return <Redirect to="/" />
   return (
     <Container>
@@ -44,9 +53,10 @@ const SignIn = () => {
             required
           />
         </Form.Group>
+        <FormErrors errors={errors} />
         <Button variant="primary" type="submit">
           Submit
-      </Button>
+        </Button>
       </Form>
     </Container>
   )
@@ -55,7 +65,7 @@ const SignIn = () => {
 const signInQuery = gql`
   mutation Login($username: String!, $password: String!) {
     login(username: $username, password: $password){
-      id
+      token
     }
   }
 `;

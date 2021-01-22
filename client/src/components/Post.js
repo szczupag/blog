@@ -1,4 +1,5 @@
 import { Card } from 'react-bootstrap';
+import moment from 'moment';
 
 const Post = ({ post: { title, body, author, createdAt } }) => (
   <Card>
@@ -8,7 +9,7 @@ const Post = ({ post: { title, body, author, createdAt } }) => (
       <Card.Text>{body}</Card.Text>
     </Card.Body>
     <Card.Footer>
-      <small className="text-muted">{createdAt}</small>
+      <small className="text-muted">{moment(createdAt).fromNow()}</small>
     </Card.Footer>
   </Card>
 );
