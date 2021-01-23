@@ -18,6 +18,7 @@
     ```
     npm start
     ```
+1. View GraphQL playground on http://localhost:5000/
 
 ## Cliect setup
 
@@ -36,14 +37,14 @@
     npm start
     
     ```
+1. View Blog app on http://localhost:3000/
 
 # Features
 - For not signed up users:\
         - Sign up\
-        - Posts list view (Home page)
 - For signed up users:\
         - Sign in\
-        - Posts list view (Home page)\
+        - Posts list view\
         - Add new post\
         - Single post view\
         - Edit / delete posts that you created\

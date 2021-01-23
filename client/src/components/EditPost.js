@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Form, Button, Container } from 'react-bootstrap';
 import FormErrors from './FormErrors';
-import { fetchPostQuery } from './Post';
 import { useHistory } from 'react-router-dom';
+import { fetchPostsQuery } from './Home'
 
 const EditPost = ({ post: { title, body, id } }) => {
   const history = useHistory();
@@ -11,10 +11,24 @@ const EditPost = ({ post: { title, body, id } }) => {
   const [newBody, setBody] = useState(body);
 
   const [updatePost] = useMutation(editPostQuery, {
-    update() {
-      history.push('/')
+    update(proxy) {
+      const data = proxy.readQuery({
+        query: fetchPostsQuery
+      });
+      const rest = data.getPosts.filter(el => el.id !== id);
+      const updated = data.getPosts.find(el => el.id === id);
+      const newUpdated = {
+        ...updated,
+        body: newBody,
+      };
+      proxy.writeQuery({
+        query: fetchPostsQuery,
+        data: { getPosts: [newUpdated, ...rest] }
+      });
+      history.push('/');
     },
     onError(err) {
+      console.log(err)
       setErrors([err.graphQLErrors[0].message]);
     },
     variables: {
