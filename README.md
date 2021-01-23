@@ -38,8 +38,13 @@
     ```
 
 # Features
-- Posts preview
-- Sign In / Sign Up / Sign Out
-- Post details page
-- Create post
-- Delete post
+- For not signed up users:\
+        - Sign up\
+        - Posts list view (Home page)
+- For signed up users:\
+        - Sign in\
+        - Posts list view (Home page)\
+        - Add new post\
+        - Single post view\
+        - Edit / delete posts that you created\
+        - Sign out

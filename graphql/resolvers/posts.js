@@ -62,6 +62,15 @@ module.exports = {
       } catch (err) {
         throw new Error(err);
       }
-    }
+    },
+    async updatePost(_, { postId, body }, context) {
+      const user = checkAuth(context);
+      try {
+        await Post.findOneAndUpdate({ "_id": postId }, { "$set": { body } });
+        return 'Succesfully updated';
+      } catch (err) {
+        throw new Error(err);
+      }
+    },
   }
 }

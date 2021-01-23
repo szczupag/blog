@@ -64,7 +64,7 @@ const AddPost = () => {
           <FormErrors errors={errors} />
           <Button variant="primary" type="submit">
             Submit
-        </Button>
+          </Button>
         </Form>
       </div>
     </Container>
