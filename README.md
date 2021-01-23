@@ -1,7 +1,8 @@
 # Blog
+Simple blog - Put your thoughts on the wall!
 # Tech stack
-- React client
-- Graphql server with Apollo 
+- React with Apollo client
+- Graphql with Apollo server
 - MongoDB database
 # Running locally
 ## Server setup
@@ -25,23 +26,20 @@
 1. Go to client directory
     ```
     cd client
-    
     ```
 1. Install client dependencies
     ```
     npm install
-    
     ```
 1. Run client
     ```
     npm start
-    
     ```
 1. View Blog app on http://localhost:3000/
 
 # Features
 - For not signed up users:\
-        - Sign up\
+        - Sign up
 - For signed up users:\
         - Sign in\
         - Posts list view\
